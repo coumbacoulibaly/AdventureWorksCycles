@@ -894,30 +894,4 @@ SELECT AVG(NumberCarsOwned)
 FROM Sales.vPersonDemographics
 WHERE DateFirstPurchase IS NOT NULL; 
 
-
-
-
-
-SELECT *
-FROM Sales.vPersonDemographics
-WHERE DateFirstPurchase IS NOT NULL;
-
-
-
-
-
-
-SELECT COUNT(*) 
-FROM Sales.Customer c 
-JOIN Person.Person p 
-ON c.PersonID = p.BusinessEntityID
-WHERE p.PersonType = 'SC';
-
-SELECT *
-FROM Sales.Customer;
-
-SELECT *
-FROM Sales.Store;
-
-SELECT *
-FROM Sales.SalesOrderHeader;    
+ 
