@@ -240,7 +240,104 @@ SELECT COUNT(*)
 FROM INFORMATION_SCHEMA.TABLES
 WHERE TABLE_SCHEMA = 'Production' AND TABLE_TYPE = 'BASE TABLE';
 
----Let's look closer to the product table
+---Let's divide this schema into 3 sub-schemas : Product, Manufacturing and Inventory
+
+---- P R O D U C T  S U B - S C H E M A -----
+-- This sub-schema contain all the tables related to the product: Product, ProductCategory, ProductDescription, 
+-- ProductDocument, ProductModel, ProductSubCategory, ProductIllustration, ProductModelIllustration,
+-- ProductModelProductDescriptionCulture, ProductPhoto, ProductProductPhoto, Document, Review, UnitMeasure, Culture
+
+--let's start with the product tables
+SELECT * 
+FROM Production.Product;
+
+--Number of product
+SELECT COUNT(*) 
+FROM Production.Product;
+
+-- Average days to manufacture
+SELECT AVG(DaysToManufacture) as AverageDaysToManufacture
+FROM Production.Product;
+
+-- Number of product by productline (R = Road, M = Mountain, T = Touring, S = Standard)
+SELECT ProductLine, COUNT(*) as NumberOfProduct
+FROM Production.Product
+GROUP BY ProductLine;
+
+-- Number of product by Class (H = High, M = Medium, L = Low)
+SELECT Class, COUNT(*) as NumberOfProduct
+FROM Production.Product
+GROUP BY Class;
+
+-- Number of product by Style (W = Womens, M = Mens, U = Universal)
+SELECT Style, COUNT(*) as NumberOfProduct
+FROM Production.Product
+GROUP BY Style;
+
+-- Product which arent sell by the company anymore
+SELECT *
+FROM Production.Product
+WHERE SellEndDate IS NOT NULL;
+
+-- let's calculate their number
+SELECT COUNT(*) as NumberOfProduct
+FROM Production.Product
+WHERE SellEndDate IS NOT NULL;
+
+-- Average cost
+SELECT AVG(StandardCost) as AverageCost
+FROM Production.Product;
+
+-- Average list Price
+SELECT AVG(ListPrice) as AverageListPrice
+FROM Production.Product;
+
+-- Average Profit and Profit margin
+SELECT ( AVG(ListPrice) - AVG(StandardCost)   ) as Profit, 
+		((( AVG(ListPrice) - AVG(StandardCost)   ) * 100)/AVG(ListPrice)) as ProfitMargin
+FROM Production.Product;
+
+-- let's take a look at the different product categories
+SELECT * 
+FROM Production.ProductCategory;
+
+-- We just have 4 categories. let's look at subcategories
+SELECT * 
+FROM Production.ProductSubcategory;
+
+--Number of product by subcategories
+SELECT PS.ProductSubcategoryID, PS.[Name], COUNT(P.ProductID) as NumberOfProduct
+FROM Production.ProductSubcategory PS
+FULL JOIN Production.Product P
+ON P.ProductSubcategoryID = PS.ProductSubcategoryID
+GROUP BY PS.ProductSubcategoryID, PS.[Name];
+
+--Number of product by categories
+SELECT PS.ProductCategoryID, PC.[Name], COUNT(P.ProductID) as NumberOfProduct
+FROM Production.ProductSubcategory PS
+FULL JOIN Production.Product P
+ON P.ProductSubcategoryID = PS.ProductSubcategoryID
+FULL JOIN Production.ProductCategory PC
+ON PS.ProductCategoryID = PC.ProductCategoryID
+GROUP BY PS.ProductCategoryID, PC.[Name];
+
+-- let's look the product model table
+SELECT *
+FROM Production.ProductModel
+
+---- M A N U F A C T U R I N G  S U B - S C H E M A -----
+-- This sub-schema contain all the tables related to the manufacturing process: Product, WorkOrder, WorkOrderRouting,
+-- Locattion, TransactionHistory, TransactionHistoryArchive, ProductCostHistory, BillOfMaterials, UnitMeasure, ScrapReason
+
+
+
+
+---- I N V E N T O R Y  S U B - S C H E M A -----
+-- This sub-schema mainly contain the ProductInventory table and the tables related to it, such as Product and location tables
+
+
+
+
 SELECT * 
 FROM Production.Product;
 
@@ -676,11 +773,11 @@ FROM Sales.SalesOrderDetail;
 
 --Product with the most ordered by year
 WITH cte_product_ordered ([YEAR], ProductID, OrderNumber) AS (
-SELECT YEAR(ModifiedDate) as [YEAR], 
-		ProductID, 
-		COUNT(*) as OrderNumber
-FROM Sales.SalesOrderDetail
-GROUP BY YEAR(ModifiedDate), ProductID
+	SELECT YEAR(ModifiedDate) as [YEAR], 
+			ProductID, 
+			COUNT(*) as OrderNumber
+	FROM Sales.SalesOrderDetail
+	GROUP BY YEAR(ModifiedDate), ProductID
 )
 
 SELECT PO.[YEAR], PO.ProductID, PO.OrderNumber
