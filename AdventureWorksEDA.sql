@@ -385,8 +385,55 @@ FROM Production.Document;
 ---- M A N U F A C T U R I N G  S U B - S C H E M A -----
 -- This sub-schema contain all the tables related to the manufacturing process: Product, WorkOrder, WorkOrderRouting,
 -- Locattion, TransactionHistory, TransactionHistoryArchive, ProductCostHistory, BillOfMaterials, UnitMeasure, ScrapReason
+-- let's start with product workorder
+SELECT *
+FROM Production.WorkOrder;
 
+-- Average days of order completion by year
+SELECT  YEAR(StartDate) as [Year], AVG( DATEDIFF( day, StartDate, EndDate ) ) as AvgCompletionDay
+FROM Production.WorkOrder
+GROUP BY YEAR(StartDate);
 
+--Product with the most order by year
+WITH cte_nb_order ([YEAR], ProductID, OrderNumber) AS (
+	SELECT YEAR(StartDate) as [YEAR], 
+			ProductID, 
+			COUNT(*) as OrderNumber
+	FROM Production.WorkOrder
+	GROUP BY YEAR(StartDate), ProductID
+)
+
+SELECT CNO.[YEAR], CNO.ProductID, CNO.OrderNumber
+FROM cte_nb_order CNO
+INNER JOIN 
+(SELECT [YEAR], MAX(OrderNumber) as MaxOrderNumber
+FROM cte_nb_order 
+GROUP BY [YEAR]) MCNO
+ON CNO.[YEAR] = MCNO.[YEAR] AND CNO.OrderNumber = MCNO.MaxOrderNumber
+ORDER BY CNO.[YEAR];
+
+-- Order with scrapped element
+SELECT *
+FROM Production.WorkOrder
+WHERE ScrappedQty <> 0;
+
+-- ScrapReason
+SELECT WO.WorkOrderID, WO.ProductID, WO.ScrapReasonID, SR.[Name], WO.ScrappedQty
+FROM Production.WorkOrder WO
+INNER JOIN Production.ScrapReason SR
+ON WO.ScrapReasonID = SR.ScrapReasonID;
+
+-- Number of scrap by reason
+SELECT WO.ScrapReasonID, SR.[Name], COUNT(*) as NumberOfOrder
+FROM Production.WorkOrder WO
+INNER JOIN Production.ScrapReason SR
+ON WO.ScrapReasonID = SR.ScrapReasonID
+GROUP BY WO.ScrapReasonID, SR.[Name]
+ORDER BY NumberOfOrder DESC;
+
+-- Work Order Routine
+SELECT *
+FROM Production.WorkOrderRouting;
 
 
 -- Location table
