@@ -325,6 +325,63 @@ GROUP BY PS.ProductCategoryID, PC.[Name];
 SELECT *
 FROM Production.ProductModel
 
+--Number of product by models
+SELECT PM.ProductModelID, PM.[Name], COUNT(P.ProductID) as NumberOfProduct
+FROM Production.ProductModel PM
+FULL JOIN Production.Product P
+ON PM.ProductModelID = P.ProductModelID
+GROUP BY PM.ProductModelID, PM.[Name];
+
+--Average List price by models
+SELECT PM.ProductModelID, PM.[Name], AVG(P.ListPrice) as AverageListPrice
+FROM Production.ProductModel PM
+FULL JOIN Production.Product P
+ON PM.ProductModelID = P.ProductModelID
+GROUP BY PM.ProductModelID, PM.[Name]
+ORDER BY AverageListPrice DESC;
+
+--Average cost by models
+SELECT PM.ProductModelID, PM.[Name], AVG(P.StandardCost) as AverageCost
+FROM Production.ProductModel PM
+FULL JOIN Production.Product P
+ON PM.ProductModelID = P.ProductModelID
+GROUP BY PM.ProductModelID, PM.[Name]
+ORDER BY AverageCost DESC;
+
+--Model illustration
+SELECT *
+FROM Production.ProductModelIllustration;
+
+SELECT *
+FROM Production.Illustration; -- This actually adobe illustrator generated xml file 
+
+-- The follows queries just look at the other tables of this sub-schema. They contains informations
+-- about products like pictures and description in different languages
+SELECT *
+FROM Production.ProductDescription;
+
+SELECT *
+FROM Production.Culture;
+
+SELECT *
+FROM Production.ProductModelProductDescriptionCulture;
+
+SELECT *
+FROM Production.ProductReview;
+
+SELECT *
+FROM Production.ProductPhoto;
+
+SELECT *
+FROM Production.ProductProductPhoto;
+
+SELECT *
+FROM Production.ProductDocument;
+
+SELECT *
+FROM Production.Document;
+
+
 ---- M A N U F A C T U R I N G  S U B - S C H E M A -----
 -- This sub-schema contain all the tables related to the manufacturing process: Product, WorkOrder, WorkOrderRouting,
 -- Locattion, TransactionHistory, TransactionHistoryArchive, ProductCostHistory, BillOfMaterials, UnitMeasure, ScrapReason
@@ -332,30 +389,55 @@ FROM Production.ProductModel
 
 
 
+-- Location table
+SELECT *
+FROM Production.[Location];
+
+--Number of location
+SELECT COUNT(*) as NumberOfLocation
+FROM Production.[Location];
+
+-- CostRate is standard hourly cost of the manufacturing location.
+-- Availability is work capacity (in hours) of the manufacturing location
+-- Let's look at the average of these 2 columns
+SELECT AVG(CostRate) as AvgCostRate
+FROM Production.[Location];
+
+SELECT AVG([Availability]) as AvgCostRate
+FROM Production.[Location];
+
 ---- I N V E N T O R Y  S U B - S C H E M A -----
 -- This sub-schema mainly contain the ProductInventory table and the tables related to it, such as Product and location tables
-
-
-
-
-SELECT * 
-FROM Production.Product;
-
---Number of product
-SELECT COUNT(*) 
-FROM Production.Product;
-
-SELECT * 
-FROM Production.ProductCategory;
-
-SELECT * 
-FROM Production.ProductCostHistory;
-
-SELECT * 
-FROM Production.ProductlistPriceHistory;
-
-SELECT * 
+SELECT *
 FROM Production.ProductInventory;
+
+--Number of prodcut by location
+SELECT LocationID, COUNT(*) as NumberOfProduct
+FROM Production.ProductInventory
+GROUP BY LocationID
+ORDER BY NumberOfProduct DESC;
+
+--Product Quantity available
+SELECT ProductID, SUM(Quantity) as TotalQuantity
+FROM Production.ProductInventory
+GROUP BY ProductID
+ORDER BY TotalQuantity DESC;
+
+--Product Quantity available in different lacation
+SELECT LocationID, SUM(Quantity) as TotalQuantity
+FROM Production.ProductInventory
+GROUP BY LocationID
+ORDER BY TotalQuantity DESC;
+
+--Product which quantity is under the reorder point 
+SELECT I.ProductID, P.[Name], P.SafetyStockLevel, P.ReorderPoint, 
+		SUM(I.Quantity) as QuantityAvailable
+FROM Production.ProductInventory I
+JOIN Production.Product P
+ON I.ProductID = P.ProductID
+GROUP BY I.ProductID, P.[Name], P.SafetyStockLevel, P.ReorderPoint
+HAVING P.ReorderPoint >= SUM(I.Quantity);
+
 
 --------- P U R C H A S I N G   S C H E M A -----------
 --Tables in this schema
