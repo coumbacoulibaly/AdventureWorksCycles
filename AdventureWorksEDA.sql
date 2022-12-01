@@ -435,6 +435,84 @@ ORDER BY NumberOfOrder DESC;
 SELECT *
 FROM Production.WorkOrderRouting;
 
+-- How many Order has pass through the different location in 2011
+SELECT WOR.LocationID, L.[Name], COUNT(WOR.WorkOrderID) as NumberOfOrder
+FROM Production.WorkOrderRouting WOR
+JOIN Production.[Location] L
+ON WOR.LocationID = L.LocationID
+WHERE YEAR(WOR.ModifiedDate) = 2011
+GROUP BY WOR.LocationID, L.[Name];
+
+-- How many Order has pass through the different location by year
+SELECT YEAR(WOR.ModifiedDate) as [YEAR], WOR.LocationID, L.[Name], 
+		COUNT(WOR.WorkOrderID) as NumberOfOrder
+FROM Production.WorkOrderRouting WOR
+JOIN Production.[Location] L
+ON WOR.LocationID = L.LocationID
+GROUP BY YEAR(WOR.ModifiedDate), WOR.LocationID, L.[Name]
+ORDER BY YEAR(WOR.ModifiedDate);
+
+-- BillofMaterials : Items required to make bicycles and bicycle subassemblies.
+--It identifies the heirarchical relationship between a parent product and its components.
+SELECT *
+FROM Production.BillOfMaterials;
+
+SELECT COUNT(*)
+FROM Production.BillOfMaterials;
+
+-- Number of bill of materials for each product
+SELECT ProductAssemblyID, COUNT(*)
+FROM Production.BillOfMaterials
+GROUP BY ProductAssemblyID;
+
+
+-- Transaction History: Record of each purchase order, sales order, or work order transaction year to date
+SELECT *
+FROM Production.TransactionHistory;
+
+-- TransactionType is like the type of transaction it is. W = WorkOrder, S = SalesOrder, P = PurchaseOrder
+SELECT TransactionType, COUNT(*) as NumberOfOrder 
+FROM Production.TransactionHistory
+GROUP BY TransactionType;
+
+--Sum of Actualcost for all type of order
+SELECT TransactionType, SUM(ActualCost) as TotalCost
+FROM Production.TransactionHistory
+GROUP BY TransactionType;
+
+-- Transaction History Archives: Transactions for previous years
+SELECT *
+FROM Production.TransactionHistoryArchive;
+
+-- Number of Order by Transactiontype by year
+SELECT YEAR(TransactionDate) as [YEAR], TransactionType, COUNT(*) as NumberOfOrder 
+FROM Production.TransactionHistoryArchive
+GROUP BY YEAR(TransactionDate), TransactionType
+ORDER BY YEAR(TransactionDate);
+
+--Sum of Actualcost for all type of order
+SELECT YEAR(TransactionDate) as [YEAR], TransactionType, SUM(ActualCost) as TotalCost
+FROM Production.TransactionHistoryArchive
+GROUP BY YEAR(TransactionDate), TransactionType
+ORDER BY YEAR(TransactionDate);
+
+-- ProductHistoryCost : Changes in the cost of a product over time
+SELECT *
+FROM Production.ProductCostHistory;
+
+--Number time cost change by product
+SELECT ProductID, COUNT(*) as NumberOfChanges
+FROM Production.ProductCostHistory
+GROUP BY ProductID;
+
+-- Current cost 
+SELECT *
+FROM Production.ProductCostHistory
+WHERE EndDate IS NULL;
+
+-- ProductListPriceHistory : Changes in the list price of a product over time.
+SELECT *
+FROM Production.ProductListPriceHistory;
 
 -- Location table
 SELECT *
