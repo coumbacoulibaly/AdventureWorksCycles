@@ -510,9 +510,32 @@ SELECT *
 FROM Production.ProductCostHistory
 WHERE EndDate IS NULL;
 
+-- Percentage difference between last cost and current cost 
+--WITH  cte_last_year as (
+--	SELECT ProductID, MAX(YEAR(EndDate)) as lastChange
+--	FROM Production.ProductCostHistory
+--	GROUP BY ProductID
+--	)
+--SELECT t1.ProductID, (t2.StandardCost - t1.StandardCost) AS sub1
+--FROM Production.ProductCostHistory t1 
+--CROSS JOIN Production.ProductCostHistory t2
+--INNER JOIN cte_last_year  CLY
+--ON CLY.ProductID = t1.ProductID
+--WHERE t1.EndDate = CLY.lastChange AND t2.EndDate IS NULL; Still working on this query
+
 -- ProductListPriceHistory : Changes in the list price of a product over time.
 SELECT *
 FROM Production.ProductListPriceHistory;
+
+--Number time cost change by product
+SELECT ProductID, COUNT(*) as NumberOfChanges
+FROM Production.ProductListPriceHistory
+GROUP BY ProductID;
+
+-- Current cost 
+SELECT *
+FROM Production.ProductListPriceHistory
+WHERE EndDate IS NULL;
 
 -- Location table
 SELECT *
