@@ -4,8 +4,7 @@ The AdventureWorks databases are sample databases that were originally published
 
 Adventure Works Cycles is a large, multinational manufacturing company that produces and distributes metal and composite bicycles to commercial markets in North America, Europe, and Asia. The headquarters for Adventure Works Cycles is Bothell, Washington, where the company employs 500 workers. Additionally, Adventure Works Cycles employs several regional sales teams throughout its market base.
 
-I used this sample database to increase my knowledge about data analysis applications in a business environment and improve my skill in SQL.
-
+I utilized this sample database to sharpen my SQL skill and broaden my understanding of business-related data analytics applications.
 ## 📚 Table of Contents
 - [Schema Diagram](#schema-diagram)
 - [HR Analysis](#hr-analysis)
