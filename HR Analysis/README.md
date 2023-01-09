@@ -1,1 +1,89 @@
+# Adventure Works Cycle : HR Analysis
 
+
+## 📚 Table of Contents
+- [Business Task](#business-task)
+- [Entity Relationship Diagram](#entity-relationship-diagram)
+- [Case Study Questions](#case-study-questions)
+
+
+***
+
+## Business Task
+Adventure Works Cycles HR Manager wants a more employee-centric culture in the company. To attain this goal, he wants to use data to answer few questions about the employee, especially about their work experience in the company and overall satisfaction.
+
+## Entity Relationship Diagram
+<img src="https://user-images.githubusercontent.com/119062221/211286194-e8166399-e946-4c95-8520-0fc1ac668636.jpg" alt="Image" width="550" height="600" >
+
+## Case Study Questions
+
+<details>
+<summary>
+Employee Demographics
+</summary>
+
+1. What is the total number of employees in the company? 
+2. What is the number of employees by department? 
+3. What is the number of employees by region?
+4. What is the number of employees by gender?
+5. What is the number of employees by organization level?
+6. What is the number of employees by Tenure range level?
+7. What the average age of employee? find the youngest and the oldest employeed
+8. What are the marital status percentage in the company?
+9. What is the number of employees by shift?
+
+</details>
+
+<details>
+<summary>
+Employee Diversity
+</summary>
+
+1. What is the percentage of gender by department?
+2. What is the percentage of gender by region?
+3. What is the percentage of gender by organization level?
+4. What is the percentage of gender by tenure range?
+5. What is the percentage of gender by age?
+
+</details>
+
+<details>
+<summary>
+Employee Salaries
+</summary>
+1. What is the  total annual salary in the company?
+2. What is the  average annual salary in the company?
+3. What is the number of employee by annual salary range?
+4. What is the average annual salary by department?
+5. What is the  average annual salary by region?
+6. What is the  average annual salary by organization level?
+7. What is the  average annual salary by tenure range?
+8. What is the  average annual salary by age?
+9. What is the  average annual salary by gender?
+
+</details>
+
+<details>
+<summary>
+Employee Leaves
+</summary>
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+9.
+
+</details>
+
+3. What was the first item from the menu purchased by each customer?
+4. What is the most purchased item on the menu and how many times was it purchased by all customers?
+5. Which item was the most popular for each customer?
+6. Which item was purchased first by the customer after they became a member?
+7. Which item was purchased just before the customer became a member?
+10. What is the total items and amount spent for each member before they became a member?
+11. If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?
+12. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?
