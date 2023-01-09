@@ -51,6 +51,7 @@ Employee Diversity
 <summary>
 Employee Salaries
 </summary>
+  
 1. What is the  total annual salary in the company?
 2. What is the  average annual salary in the company?
 3. What is the number of employee by annual salary range?
@@ -60,6 +61,7 @@ Employee Salaries
 7. What is the  average annual salary by tenure range?
 8. What is the  average annual salary by age?
 9. What is the  average annual salary by gender?
+10. Which get a promotion or pay raise since hired?
 
 </details>
 
@@ -67,23 +69,18 @@ Employee Salaries
 <summary>
 Employee Leaves
 </summary>
-1.
-2.
-3.
-4.
-5.
-6.
-7.
-8.
-9.
+  
+1. What is the  total leaving hour for all employee?
+2. What is the  average sick leaves hour in the company?
+3. What is the  average vacations hour in the company?
+4. What is the  average sick leaves hour by department?
+5. What is the  average sick leaves hour by organization level?
+6. What is the  average sick leaves hour by gender?
+7. What is the  average sick leaves hour by age range?
+8. What is the  average vacations hour by department?
+9. What is the  average vacations hour by organization level?
+10. What is the  average vacations hour by gender?
+11. What is the  average vacations hour by age renge?
 
 </details>
 
-3. What was the first item from the menu purchased by each customer?
-4. What is the most purchased item on the menu and how many times was it purchased by all customers?
-5. Which item was the most popular for each customer?
-6. Which item was purchased first by the customer after they became a member?
-7. Which item was purchased just before the customer became a member?
-10. What is the total items and amount spent for each member before they became a member?
-11. If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?
-12. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?
