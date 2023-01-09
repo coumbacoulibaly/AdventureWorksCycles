@@ -86,8 +86,16 @@ Select COUNT(DISTINCT GroupName)
 FROM HumanResources.Department;
 
 --- Let's look at the employees
-Select *
+SELECT *
 FROM HumanResources.Employee;
+
+SELECT *
+FROM HumanResources.vEmployeeDepartment;
+Select *
+FROM HumanResources.Employee E
+JOIN Person.Person P
+ON E.BusinessEntityID = P.BusinessEntityID
+WHERE E.JobTitle like 'Human Resources Manager';
 
 -- Number of employee
 Select COUNT(*)
