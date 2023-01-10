@@ -71,16 +71,11 @@ Employee Leaves
 </summary>
   
 1. What is the  total leaving hour for all employee?
-2. What is the  average sick leaves hour in the company?
-3. What is the  average vacations hour in the company?
-4. What is the  average sick leaves hour by department?
-5. What is the  average sick leaves hour by organization level?
-6. What is the  average sick leaves hour by gender?
-7. What is the  average sick leaves hour by age range?
-8. What is the  average vacations hour by department?
-9. What is the  average vacations hour by organization level?
-10. What is the  average vacations hour by gender?
-11. What is the  average vacations hour by age renge?
+2. What is the  average sick leaves hours and vacations hours in the company?
+3. What is the  average sick leaves hours and vacations hours by department?
+4. What is the  average sick leaves hours and vacations hours by organization level?
+5. What is the  average sick leaves hours and vacations hours by gender?
+
 
 </details>
 
