@@ -36,7 +36,7 @@ Employee Demographics
 
 <details>
 <summary>
-Employee Diversity
+Employee Gender Diversity
 </summary>
 
 1. What is the percentage of gender by department?
