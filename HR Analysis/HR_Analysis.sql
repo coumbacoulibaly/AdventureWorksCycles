@@ -336,49 +336,152 @@ ON bea.BusinessEntityID = ans.BusinessEntityID
 GROUP BY c.Country;
 
 --6. What is the  average annual salary by organization level?
-
+WITH cte_lastratechange ( BusinessEntityID, LastRateChangeDate ) AS (
+		SELECT BusinessEntityID, MAX(RateChangeDate) as LastRateChangeDate
+		FROM HumanResources.EmployeePayHistory
+		GROUP BY BusinessEntityID
+),
+cte_annual_salary ( BusinessEntityID, Annual_Salary) AS(
+		SELECT lrc.BusinessEntityID, ((( e.Rate*40)*4)*12) AS Annual_Salary
+		FROM cte_lastratechange lrc
+		INNER JOIN HumanResources.EmployeePayHistory e
+		ON e.BusinessEntityID = lrc.BusinessEntityID 
+		AND e.RateChangeDate = lrc.LastRateChangeDate
+)
+SELECT e.OrganizationLevel, AVG(ans.Annual_Salary) AS AverageAnnualSalaries
+FROM cte_annual_salary ans
+INNER JOIN HumanResources.Employee e
+ON ans.BusinessEntityID = e.BusinessEntityID
+GROUP BY OrganizationLevel;
 
 --7. What is the  average annual salary by tenure range?
-
+WITH cte_tenurerange (BusinessEntityID, Tenure_Range) AS (
+	SELECT BusinessEntityID,
+	CASE
+		WHEN (2014 - YEAR(HireDate)) < 1 
+			THEN '< 1 year'
+		WHEN (2014 - YEAR(HireDate)) BETWEEN 1 AND 2 
+			THEN '1-3 years'
+		WHEN (2014 - YEAR(HireDate)) BETWEEN 3 AND 5
+			THEN '3-6 years'
+		WHEN (2014 - YEAR(HireDate)) BETWEEN 6 AND 9 
+			THEN '6-10 years'
+		ELSE '> 10 years'
+	END AS Tenure_Range
+	FROM HumanResources.Employee 
+),
+cte_lastratechange ( BusinessEntityID, LastRateChangeDate ) AS (
+		SELECT BusinessEntityID, MAX(RateChangeDate) as LastRateChangeDate
+		FROM HumanResources.EmployeePayHistory
+		GROUP BY BusinessEntityID
+),
+cte_annual_salary ( BusinessEntityID, Annual_Salary) AS(
+		SELECT lrc.BusinessEntityID, ((( e.Rate*40)*4)*12) AS Annual_Salary
+		FROM cte_lastratechange lrc
+		INNER JOIN HumanResources.EmployeePayHistory e
+		ON e.BusinessEntityID = lrc.BusinessEntityID 
+		AND e.RateChangeDate = lrc.LastRateChangeDate
+)
+SELECT ca.Tenure_Range, AVG(ans.Annual_Salary) AS AverageAnnualSalaries
+FROM cte_tenurerange ca
+JOIN cte_annual_salary ans 
+ON ans.BusinessEntityID = ca.BusinessEntityID
+GROUP BY ca.Tenure_Range;
 
 --8. What is the  average annual salary by age?
-
+WITH cte_age (BusinessEntityID, Age_Range) AS (
+	SELECT BusinessEntityID,
+	CASE
+		WHEN (2014 - YEAR(BirthDate)) < 18 
+			THEN '< 18 years'
+		WHEN (2014 - YEAR(BirthDate)) BETWEEN 18 AND 20 
+			THEN '18-30 years'
+		WHEN (2014 - YEAR(BirthDate)) BETWEEN 30 AND 39
+			THEN '30-40 years'
+		WHEN (2014 - YEAR(BirthDate)) BETWEEN 40 AND 49 
+			THEN '40-50 years'
+		WHEN (2014 - YEAR(BirthDate)) BETWEEN 50 AND 59 
+			THEN '50-60 years'
+		ELSE '> 60 years'
+	END AS Age_Range
+	FROM HumanResources.Employee -- 2014 because the database had no significance that year.
+)
+,
+cte_lastratechange ( BusinessEntityID, LastRateChangeDate ) AS (
+		SELECT BusinessEntityID, MAX(RateChangeDate) as LastRateChangeDate
+		FROM HumanResources.EmployeePayHistory
+		GROUP BY BusinessEntityID
+),
+cte_annual_salary ( BusinessEntityID, Annual_Salary) AS(
+		SELECT lrc.BusinessEntityID, ((( e.Rate*40)*4)*12) AS Annual_Salary
+		FROM cte_lastratechange lrc
+		INNER JOIN HumanResources.EmployeePayHistory e
+		ON e.BusinessEntityID = lrc.BusinessEntityID 
+		AND e.RateChangeDate = lrc.LastRateChangeDate
+)
+SELECT ca.Age_Range, AVG(ans.Annual_Salary) AS AverageAnnualSalaries
+FROM cte_age ca
+JOIN cte_annual_salary ans 
+ON ans.BusinessEntityID = ca.BusinessEntityID
+GROUP BY ca.Age_Range;
 
 --9. What is the  average annual salary by gender?
+WITH cte_lastratechange ( BusinessEntityID, LastRateChangeDate ) AS (
+		SELECT BusinessEntityID, MAX(RateChangeDate) as LastRateChangeDate
+		FROM HumanResources.EmployeePayHistory
+		GROUP BY BusinessEntityID
+),
+cte_annual_salary ( BusinessEntityID, Annual_Salary) AS(
+		SELECT lrc.BusinessEntityID, ((( e.Rate*40)*4)*12) AS Annual_Salary
+		FROM cte_lastratechange lrc
+		INNER JOIN HumanResources.EmployeePayHistory e
+		ON e.BusinessEntityID = lrc.BusinessEntityID 
+		AND e.RateChangeDate = lrc.LastRateChangeDate
+)
+SELECT e.Gender, AVG(ans.Annual_Salary) AS AverageAnnualSalaries
+FROM cte_annual_salary ans
+JOIN HumanResources.Employee e 
+ON e.BusinessEntityID = ans.BusinessEntityID
+GROUP BY e.Gender;
 
-
---10. Which get a promotion or pay raise since hired?
+--10. Which employee get a promotion or pay raise since hired?
+SELECT BusinessEntityID,COUNT(*) AS PayRaise 
+FROM HumanResources.EmployeePayHistory
+GROUP BY BusinessEntityID
+HAVING COUNT(*) > 1;
 
 ---Employee Leaves
 
---1. What is the  total leaving hour for all employee?
+--1. What is the  total leaves hour for all employee?
+SELECT SUM(SickLeaveHours + VacationHours) as AverageLeavesHours
+FROM HumanResources.Employee;
+
+--2. What is the  average sick leaves hours and vacations hours in the company?
+SELECT AVG(SickLeaveHours) as AverageSickLeaveHours, AVG(VacationHours) as AverageVacationHours
+FROM HumanResources.Employee;
+
+--3. What is the  average sick leaves and vacations hour hour by department?
+SELECT d.[Name] AS Department, AVG(e.SickLeaveHours) as AverageSickLeaveHours, 
+		AVG(e.VacationHours) as AverageVacationHours
+FROM HumanResources.EmployeeDepartmentHistory dh
+JOIN HumanResources.Employee e
+ON dh.BusinessEntityID = e.BusinessEntityID
+JOIN HumanResources.Department d
+ON d.DepartmentID = dh.DepartmentID
+WHERE dh.EndDate IS NULL
+GROUP BY d.[Name];
+
+--4. What is the  average sick leaves  hours and vacations hours by organization level?
+SELECT OrganizationLevel, AVG(SickLeaveHours) as AverageSickLeaveHours, 
+		AVG(VacationHours) as AverageVacationHours
+FROM HumanResources.Employee
+GROUP BY OrganizationLevel;
+
+--5. What is the  average sick leaves hours and vacations hours by gender?
+SELECT Gender, AVG(SickLeaveHours) as AverageSickLeaveHours, 
+		AVG(VacationHours) as AverageVacationHours
+FROM HumanResources.Employee
+GROUP BY Gender;
 
 
---2. What is the  average sick leaves hour in the company?
 
-
---3. What is the  average vacations hour in the company?
-
-
---4. What is the  average sick leaves hour by department?
-
-
---5. What is the  average sick leaves hour by organization level?
-
-
---6. What is the  average sick leaves hour by gender?
-
-
---7. What is the  average sick leaves hour by age range?
-
-
---8. What is the  average vacations hour by department?
-
-
---9. What is the  average vacations hour by organization level?
-
-
---10. What is the  average vacations hour by gender?
-
-
---11. What is the  average vacations hour by age renge?
