@@ -136,7 +136,7 @@ SELECT  MAX(YEAR(CONVERT(date,GETDATE())) - YEAR(HireDate)) as Age
 FROM HumanResources.Employee;
 
 -- Most junior Employee 
-SELECT  MIN(YEAR(CONVERT(date,GETDATE())) - YEAR(HireDate)) as Age 
+SELECT  MIN((2012 - YEAR(HireDate))) as Age 
 FROM HumanResources.Employee;
 
 -- Employees with most Vacation hours
