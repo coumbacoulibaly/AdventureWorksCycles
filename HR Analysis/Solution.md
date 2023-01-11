@@ -185,11 +185,137 @@ GROUP BY PH.ShiftID , S.Name;
 #### Answer:
 ![Question9](https://user-images.githubusercontent.com/119062221/211786969-a12dea07-85f1-4bc3-8bc6-8120663bd9ba.png)
 
+***
 
+### Employee Gender DiversityName
 
+#### 1. What is the percentage of gender by department?
+````sql
+SELECT d.[Name] AS Department, e.Gender, 
+		COUNT(*) AS TotalNumberEmployee , 
+		ROUND((COUNT(*) * 100.00 /(SELECT COUNT(*) FROM HumanResources.Employee)), 2) AS 'Percentage'
+FROM HumanResources.EmployeeDepartmentHistory dh 
+INNER JOIN HumanResources.Employee e
+ON e.BusinessEntityID = dh.BusinessEntityID
+INNER JOIN HumanResources.Department d 
+ON d.DepartmentID = dh.DepartmentID
+WHERE dh.EndDate IS NULL
+GROUP BY Gender,d.[Name];
+````
+#### Steps:
+- Use **COUNT** and **GROUP BY** to find out ```TotalNumberEmployee``` by gender in each department.
+- Use **JOIN** to merge ```EmployeeDepartmentHistory```, ```Employee``` and ```Department``` tables as the first one is linking the two tables.
 
+#### Answer:
+![Question1](https://user-images.githubusercontent.com/119062221/211790512-9c0339a9-2c9e-4dce-a069-124f61bcd54d.png)
 
+**Note:** This screenshot contains only a part of result table as it is contains many rows.
+***
+#### 2. What is the percentage of gender by region?
+````sql
+WITH cte_country (AddressID, Country)AS (
+	SELECT A.AddressID, CR.[Name] AS Country
+	FROM Person.StateProvince SP 
+	INNER JOIN Person.[Address] A
+	ON A.StateProvinceID = SP.StateProvinceID
+	INNER JOIN Person.CountryRegion CR
+	ON CR.CountryRegionCode = SP.CountryRegionCode
+)
+SELECT c.Country, e.Gender, 
+		COUNT(*) AS TotalNumberEmployee, 
+		ROUND ((COUNT(*) * 100.00 /(SELECT COUNT(*) FROM HumanResources.Employee)), 2) AS 'Percentage'
+FROM cte_country c
+INNER JOIN Person.BusinessEntityAddress bea
+ON c.AddressID = bea.AddressID
+INNER JOIN HumanResources.Employee e
+ON bea.BusinessEntityID = e.BusinessEntityID
+GROUP BY c.Country, e.Gender;
+````
+#### Steps:
+Use the same steps as in Employee Demographics Question 3. Only add the gender column.
 
+#### Answer:
+![Question2](https://user-images.githubusercontent.com/119062221/211791585-0b999307-5dfa-44cb-abe3-0f260c4112a0.png)
 
+***
+#### 3. What is the percentage of gender by organization level?
+````sql
+SELECT OrganizationLevel, Gender,
+		COUNT(*) AS TotalNumberEmployee , 
+		ROUND((COUNT(*) * 100.00 /(SELECT COUNT(*) FROM HumanResources.Employee)), 2) AS 'Percentage'
+FROM HumanResources.Employee 
+GROUP BY OrganizationLevel,Gender;
+````
+#### Steps:
+Use **COUNT** and **GROUP BY** to find out ```TotalNumberEmployee``` by gender for each Organization level.
 
+#### Answer:
+![Question3](https://user-images.githubusercontent.com/119062221/211794002-05baba7e-e3b2-422a-ba88-29273bea9b90.png)
+***
+
+#### 4. What is the percentage of gender by tenure range?
+````sql
+WITH cte_tenurerange (BusinessEntityID, Tenure_Range) AS (
+	SELECT BusinessEntityID,
+	CASE
+		WHEN (2014 - YEAR(HireDate)) < 1 
+			THEN '< 1 year'
+		WHEN (2014 - YEAR(HireDate)) BETWEEN 1 AND 2 
+			THEN '1-3 years'
+		WHEN (2014 - YEAR(HireDate)) BETWEEN 3 AND 5
+			THEN '3-6 years'
+		WHEN (2014 - YEAR(HireDate)) BETWEEN 6 AND 9 
+			THEN '6-10 years'
+		ELSE '> 10 years'
+	END AS Tenure_Range
+	FROM HumanResources.Employee -- 2014 because the database had no significance that year.
+)
+SELECT ca.Tenure_Range, e.Gender,
+		COUNT(*) AS TotalNumberEmployee , 
+		ROUND((COUNT(*) * 100.00 /(SELECT COUNT(*) FROM cte_tenurerange)), 2) AS 'Percentage'
+FROM cte_tenurerange ca
+JOIN HumanResources.Employee e 
+ON e.BusinessEntityID = ca.BusinessEntityID
+GROUP BY ca.Tenure_Range, e.Gender;
+````
+#### Steps:
+Use the same steps as in Employee Demographics Question 6. Only add the gender column.
+
+#### Answer:
+![Question4](https://user-images.githubusercontent.com/119062221/211793951-2d7d6d50-53ee-4945-93ff-4ce853f23c35.png)
+***
+
+#### 5. What is the percentage of gender by age?
+````sql	
+WITH cte_agerange (BusinessEntityID, Age_Range) AS (
+	SELECT BusinessEntityID,
+	CASE
+		WHEN (2014 - YEAR(BirthDate)) < 18 
+			THEN '< 18 years'
+		WHEN (2014 - YEAR(BirthDate)) BETWEEN 18 AND 20 
+			THEN '18-30 years'
+		WHEN (2014 - YEAR(BirthDate)) BETWEEN 30 AND 39
+			THEN '30-40 years'
+		WHEN (2014 - YEAR(BirthDate)) BETWEEN 40 AND 49 
+			THEN '40-50 years'
+		WHEN (2014 - YEAR(BirthDate)) BETWEEN 50 AND 59 
+			THEN '50-60 years'
+		ELSE '> 60 years'
+	END AS Age_Range
+	FROM HumanResources.Employee -- 2014 because the database had no significance that year.
+)
+SELECT ca.Age_Range, e.Gender,
+		COUNT(*) AS TotalNumberEmployee , 
+		ROUND((COUNT(*) * 100.00 /(SELECT COUNT(*) FROM cte_agerange)), 2) AS 'Percentage'
+FROM cte_agerange ca
+JOIN HumanResources.Employee e 
+ON e.BusinessEntityID = ca.BusinessEntityID
+GROUP BY ca.Age_Range, e.Gender;
+````
+#### Steps:
+- Create a temp table ```cte_agerange``` to find the age range for each employee using ***CASE...WHEN*** statement.
+- Use **COUNT** and **GROUP BY** to find out ```TotalNumberEmployee``` in each age range by gender.
+
+#### Answer:
+![Question5](https://user-images.githubusercontent.com/119062221/211795804-f253480b-9ea2-4635-9ac3-36354c9156f2.png)
 
