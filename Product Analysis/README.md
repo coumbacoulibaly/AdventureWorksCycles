@@ -18,78 +18,24 @@ Adventure Works Cycles Product team wants see the company different product perf
 
 ## Case Study Questions
 
-[comment]: <> (This is a comment, it will not be included)
-<!---
-<details>
-<summary>
-Acquisition
-</summary>
-
-1. 
-2. 
-3.
-4. 
-5. 
-6. 
-7. 
-8. 
-9.
-</details>
 
 <details>
 <summary>
-Activation
+Click here to expand  
 </summary>
 
-1. 
-2. 
-3. 
-4.
-5.
+1. How many product do we manufacture?
+2. How many product do we have by category? by sub-category?
+3. How many product do we have by productline? by style? by class?
+4. What are the product that aren't sell by the company anymore?
+5. How many product model do we have?
+6. What is the average cost of product? by category? by sub-category? by productline? by style? by class?
+7. What is the average listing price of product? by category? by sub-category? by productline? by style? by class?
+8. How many product did we sell through our channels (physical stores, marketing, online stores, refferals)?
+9. How many purchase do we have by product during the year?
+10. How many purchase do we have by product during the year?
+11. Which products are the most purchase by customers? (Same question for category, sub-category, productline, style and class)
+12. What is the total revenue by each? by category? by sub-category? by productline? by style? by class?
 
 </details>
 
-<details>
-<summary>
-Retention
-</summary>
-  
-1. 
-2. 
-3. 
-4. 
-5. 
-6. 
-7. 
-8. 
-9. 
-10. 
-
-</details>
-
-<details>
-<summary>
-Referral
-</summary>
-  
-1. 
-2. 
-3. 
-4. 
-5. 
-
-</details>
-
-<details>
-<summary>
-Revenue
-</summary>
-  
-1. 
-2. 
-3. 
-4. 
-5. 
-
-</details>
--->
