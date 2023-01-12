@@ -15,13 +15,13 @@ USE AdventureWorks2019;
 
 -- Employee Demographics
 --1. What is the total number of employees in the company?
-SELECT COUNT(*) AS Nbr_Employee
+SELECT COUNT(*) AS TotalNumberEmployee
 FROM HumanResources.Employee;
 
 
 --2. What is the number of employees by department?
-SELECT d.[Name], 
-		COUNT(*) AS Nbr_Employee, 
+SELECT d.[Name] AS Department, 
+		COUNT(*) AS TotalNumberEmployee, 
 		ROUND ((COUNT(*) * 100.00 /(SELECT COUNT(*) FROM HumanResources.Employee)), 2) AS 'Percentage'
 FROM HumanResources.Employee e
 INNER JOIN HumanResources.EmployeeDepartmentHistory edh
@@ -40,7 +40,7 @@ WITH cte_country (AddressID, Country)AS (
 	ON CR.CountryRegionCode = SP.CountryRegionCode
 )
 SELECT c.Country, 
-		COUNT(*) AS Nbr_Employee, 
+		COUNT(*) AS TotalNumberEmployee, 
 		ROUND ((COUNT(*) * 100.00 /(SELECT COUNT(*) FROM HumanResources.Employee)), 2) AS 'Percentage'
 FROM cte_country c
 INNER JOIN Person.BusinessEntityAddress bea
@@ -49,22 +49,25 @@ INNER JOIN HumanResources.Employee e
 ON bea.BusinessEntityID = e.BusinessEntityID
 GROUP BY c.Country;
 
+SELECT *
+FROM Person.BusinessEntityAddress
+
 --4. What is the number of employees by gender?
 SELECT Gender, 
-		COUNT(*) AS Nbr_Employee , 
+		COUNT(*) AS TotalNumberEmployee , 
 		ROUND((COUNT(*) * 100.00 /(SELECT COUNT(*) FROM HumanResources.Employee)), 2) AS 'Percentage'
 FROM HumanResources.Employee 
 GROUP BY Gender;
 
 --5. What is the number of employees by organization level?
 SELECT OrganizationLevel, 
-		COUNT(*) AS Nbr_Employee , 
+		COUNT(*) AS TotalNumberEmployee , 
 		ROUND((COUNT(*) * 100.00 /(SELECT COUNT(*) FROM HumanResources.Employee)), 2) AS 'Percentage'
 FROM HumanResources.Employee 
 GROUP BY OrganizationLevel;
 
 --6. What is the number of employees by Tenure range level?
-WITH cte_age (BusinessEntityID, Tenure_Range) AS (
+WITH cte_tenurerange (BusinessEntityID, Tenure_Range) AS (
 	SELECT BusinessEntityID,
 	CASE
 		WHEN (2014 - YEAR(HireDate)) < 1 
@@ -80,9 +83,9 @@ WITH cte_age (BusinessEntityID, Tenure_Range) AS (
 	FROM HumanResources.Employee -- 2014 because the database had no significance that year.
 )
 SELECT Tenure_Range, 
-		COUNT(*) AS Nbr_Employee , 
-		ROUND((COUNT(*) * 100.00 /(SELECT COUNT(*) FROM cte_age)), 2) AS 'Percentage'
-FROM cte_age
+		COUNT(*) AS TotalNumberEmployee , 
+		ROUND((COUNT(*) * 100.00 /(SELECT COUNT(*) FROM cte_tenurerange)), 2) AS 'Percentage'
+FROM cte_tenurerange
 GROUP BY Tenure_Range;
 
 --7. What the average age of employee? find the youngest and the oldest employeed
@@ -91,33 +94,34 @@ SELECT AVG(2014 - YEAR(BirthDate)) as AverageAge
 FROM HumanResources.Employee;
 
 -- Youngest Employee Age
-SELECT MIN(2014 - YEAR(BirthDate)) as Age 
+SELECT MIN(2014 - YEAR(BirthDate)) as MinAge 
 FROM HumanResources.Employee;
 
 -- Oldest Employee Age
-SELECT MAX(2014 - YEAR(BirthDate)) as Age 
+SELECT MAX(2014 - YEAR(BirthDate)) as MaxAge 
 FROM HumanResources.Employee; 
 
 --8. What are the marital status percentage in the company?
 SELECT MaritalStatus, 
-		COUNT(*) AS Nbr_Employee , 
+		COUNT(*) AS TotalNumberEmployee , 
 		(COUNT(*) * 100.00/(SELECT COUNT(*) FROM HumanResources.Employee)) AS 'Percentage'
 FROM HumanResources.Employee 
 GROUP BY MaritalStatus;
 
 --9. What is the number of employees by shift?
-SELECT PH.ShiftID, S.Name, COUNT(*) AS Nbr_Employee , 
+SELECT S.Name AS Shift, COUNT(*) AS TotalNumberEmployee , 
 		(COUNT(*) * 100.00/(SELECT COUNT(*) FROM HumanResources.EmployeeDepartmentHistory)) AS 'Percentage'
 FROM HumanResources.EmployeeDepartmentHistory PH 
 INNER JOIN HumanResources.Shift S
 ON PH.ShiftID = S.ShiftID
+WHERE PH.EndDate IS NULL
 GROUP BY PH.ShiftID , S.Name;
 
 --Employee Gender DiversityName
 
 --1. What is the percentage of gender by department?
 SELECT d.[Name] AS Department, e.Gender, 
-		COUNT(*) AS Nbr_Employee , 
+		COUNT(*) AS TotalNumberEmployee , 
 		ROUND((COUNT(*) * 100.00 /(SELECT COUNT(*) FROM HumanResources.Employee)), 2) AS 'Percentage'
 FROM HumanResources.EmployeeDepartmentHistory dh 
 INNER JOIN HumanResources.Employee e
@@ -127,8 +131,6 @@ ON d.DepartmentID = dh.DepartmentID
 WHERE dh.EndDate IS NULL
 GROUP BY Gender,d.[Name];
 
-SELECT * 
-FROM HumanResources.EmployeeDepartmentHistory;
 --2. What is the percentage of gender by region?
 WITH cte_country (AddressID, Country)AS (
 	SELECT A.AddressID, CR.[Name] AS Country
@@ -139,7 +141,7 @@ WITH cte_country (AddressID, Country)AS (
 	ON CR.CountryRegionCode = SP.CountryRegionCode
 )
 SELECT c.Country, e.Gender, 
-		COUNT(*) AS Nbr_Employee, 
+		COUNT(*) AS TotalNumberEmployee, 
 		ROUND ((COUNT(*) * 100.00 /(SELECT COUNT(*) FROM HumanResources.Employee)), 2) AS 'Percentage'
 FROM cte_country c
 INNER JOIN Person.BusinessEntityAddress bea
@@ -150,13 +152,13 @@ GROUP BY c.Country, e.Gender;
 
 --3. What is the percentage of gender by organization level?
 SELECT OrganizationLevel, Gender,
-		COUNT(*) AS Nbr_Employee , 
+		COUNT(*) AS TotalNumberEmployee , 
 		ROUND((COUNT(*) * 100.00 /(SELECT COUNT(*) FROM HumanResources.Employee)), 2) AS 'Percentage'
 FROM HumanResources.Employee 
 GROUP BY OrganizationLevel,Gender;
 
 --4. What is the percentage of gender by tenure range?
-WITH cte_age (BusinessEntityID, Tenure_Range) AS (
+WITH cte_tenurerange (BusinessEntityID, Tenure_Range) AS (
 	SELECT BusinessEntityID,
 	CASE
 		WHEN (2014 - YEAR(HireDate)) < 1 
@@ -172,15 +174,15 @@ WITH cte_age (BusinessEntityID, Tenure_Range) AS (
 	FROM HumanResources.Employee -- 2014 because the database had no significance that year.
 )
 SELECT ca.Tenure_Range, e.Gender,
-		COUNT(*) AS Nbr_Employee , 
-		ROUND((COUNT(*) * 100.00 /(SELECT COUNT(*) FROM cte_age)), 2) AS 'Percentage'
-FROM cte_age ca
+		COUNT(*) AS TotalNumberEmployee , 
+		ROUND((COUNT(*) * 100.00 /(SELECT COUNT(*) FROM cte_tenurerange)), 2) AS 'Percentage'
+FROM cte_tenurerange ca
 JOIN HumanResources.Employee e 
 ON e.BusinessEntityID = ca.BusinessEntityID
 GROUP BY ca.Tenure_Range, e.Gender;
 
 --5. What is the percentage of gender by age?
-WITH cte_age (BusinessEntityID, Age_Range) AS (
+WITH cte_agerange (BusinessEntityID, Age_Range) AS (
 	SELECT BusinessEntityID,
 	CASE
 		WHEN (2014 - YEAR(BirthDate)) < 18 
@@ -198,16 +200,16 @@ WITH cte_age (BusinessEntityID, Age_Range) AS (
 	FROM HumanResources.Employee -- 2014 because the database had no significance that year.
 )
 SELECT ca.Age_Range, e.Gender,
-		COUNT(*) AS Nbr_Employee , 
-		ROUND((COUNT(*) * 100.00 /(SELECT COUNT(*) FROM cte_age)), 2) AS 'Percentage'
-FROM cte_age ca
+		COUNT(*) AS TotalNumberEmployee , 
+		ROUND((COUNT(*) * 100.00 /(SELECT COUNT(*) FROM cte_agerange)), 2) AS 'Percentage'
+FROM cte_agerange ca
 JOIN HumanResources.Employee e 
 ON e.BusinessEntityID = ca.BusinessEntityID
 GROUP BY ca.Age_Range, e.Gender;
 
 ---Employee Salaries
 
---1. What is the  total annual salary in the company? Salaries are write in hourly rate  
+--1. What is the  total annual salary in the company? Salaries are in hourly rate so we nee 
 --Let's find first annual salaries for everyone
 WITH cte_lastratechange ( BusinessEntityID, LastRateChangeDate ) AS (
 		SELECT BusinessEntityID, MAX(RateChangeDate) as LastRateChangeDate
@@ -279,10 +281,11 @@ cte_salaryrange (BusinessEntityID, Annual_Salary, Salary_Range) AS(
 	FROM cte_annual_salary
 )
 SELECT Salary_Range,
-		COUNT(*) AS Nbr_Employee , 
+		COUNT(*) AS TotalNumberEmployee , 
 		ROUND((COUNT(*) * 100.00 /(SELECT COUNT(*) FROM cte_salaryrange)), 2) AS 'Percentage'
 FROM cte_salaryrange
-GROUP BY Salary_Range;
+GROUP BY Salary_Range
+ORDER BY TotalNumberEmployee DESC;
 
 --4. What is the average annual salary by department?
 WITH cte_lastratechange ( BusinessEntityID, LastRateChangeDate ) AS (
@@ -389,7 +392,7 @@ ON ans.BusinessEntityID = ca.BusinessEntityID
 GROUP BY ca.Tenure_Range;
 
 --8. What is the  average annual salary by age?
-WITH cte_age (BusinessEntityID, Age_Range) AS (
+WITH cte_agerange (BusinessEntityID, Age_Range) AS (
 	SELECT BusinessEntityID,
 	CASE
 		WHEN (2014 - YEAR(BirthDate)) < 18 
@@ -420,7 +423,7 @@ cte_annual_salary ( BusinessEntityID, Annual_Salary) AS(
 		AND e.RateChangeDate = lrc.LastRateChangeDate
 )
 SELECT ca.Age_Range, AVG(ans.Annual_Salary) AS AverageAnnualSalaries
-FROM cte_age ca
+FROM cte_agerange ca
 JOIN cte_annual_salary ans 
 ON ans.BusinessEntityID = ca.BusinessEntityID
 GROUP BY ca.Age_Range;
