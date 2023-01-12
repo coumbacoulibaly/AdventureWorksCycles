@@ -1,11 +1,11 @@
-# :office: Adventure Works Cycle : Product Analysis
+# :bike: Adventure Works Cycle : Product Analysis
 
 
 ## 📚 Table of Contents
 - [Business Task](#business-task)
 - [Entity Relationship Diagram](#entity-relationship-diagram)
 - [Case Study Questions](#case-study-questions)
-- [Solution on Github]
+- [Solution on Github](https://github.com/coumbacoulibaly/AdventureWorksCycles/blob/master/Product%20Analysis/Solution.md)
 
 
 ***
