@@ -24,6 +24,8 @@ This database contains 72 tables which are divided into 5 schemas
 - **Purschasing** : 5 tables with informations on the different supplyers which are called here vendors.
 - **Sales** : 19 tables which contains informations on customers, store, salespeople, etc.
 
+You can find more about this database [here](https://dataedo.com/samples/html/AdventureWorks/doc/AdventureWorks_2/home.html).
+
 ### Business Entity
 This table have a big role for the whole organization of the database. Despite the fact that it is part of the Person schema, it is primary key is present in almost every schema. This is because it represent core elements of the business. A business entity is anything or anyone who interacts with the business like stores, customers, supplyers, employee, etc. After some reverse engineering, I came to the conclusion with these findings:
 The _BusinessEntity_ table is directly link to _Person_, _Store_ and _Vendors_ on a one-to-one relationship. _Person_ is further related, also in a one-to-one fashion, to _Employee_, which is further related one-to-one with _SalesPerson_. For all of these tables, the primary key is the same, called _BusinessEntityID_. It's a hierarchal organization that help you understand supertype-subtype relationships.
