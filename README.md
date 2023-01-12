@@ -41,7 +41,8 @@ The following picture shows the entity diagram of the database.
 ## HR Analysis
 #### Business Tasks 
 Adventure Works Cycles HR Manager wants a more employee-centric culture in the company. To attain this goal, he wants to use data to answer few questions about the employee, especially about their work experience in the company and overall satisfaction.
-View here the case study and here my solution.
+
+View [here](https://github.com/coumbacoulibaly/AdventureWorksCycles/tree/master/HR%20Analysis) the case study and [here](https://github.com/coumbacoulibaly/AdventureWorksCycles/blob/master/HR%20Analysis/Solution.md) my solution.
 
 #### HR Dashboard
 
