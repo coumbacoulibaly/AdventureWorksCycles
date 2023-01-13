@@ -1,5 +1,5 @@
 ---------------------------------------
---ADVENTURE WORKS CYCLE : HR ANALYSIS--
+-- ADVENTURE WORKS CYCLE : HR ANALYSIS --
 ---------------------------------------
 
 --Author: Coumba Coulibaly
