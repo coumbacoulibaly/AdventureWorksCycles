@@ -1,4 +1,4 @@
-# :office: Adventure Works Cycle : HR Analysis
+# :wrench: Adventure Works Cycle : Manufacturing Analysis
 
 
 ## 📚 Table of Contents
