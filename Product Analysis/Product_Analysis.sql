@@ -63,14 +63,14 @@ FROM Production.ProductModel;
 --6. What is the average cost of product? by category? by sub-category? by productline? by style? by class?
 SELECT AVG(StandardCost) AS AverageProductCost
 FROM Production.Product
-WHERE StandardCost <> 0;
+WHERE StandardCost <> 0; --Use to filter BOM elements which cost are equal to 0.
 
 -- By Subcategory
 SELECT ps.[Name] AS Subcategory , AVG(p.StandardCost) AS AverageProductCost
 FROM Production.Product p
 FULL JOIN Production.ProductSubcategory ps 
 ON p.ProductSubcategoryID = ps.ProductSubcategoryID
-AND StandardCost <> 0
+AND StandardCost <> 0 --Use to filter BOM elements which cost are equal to 0.
 GROUP BY ps.[Name];
 
 -- By Category
@@ -86,19 +86,19 @@ ORDER BY pc.[Name];
 -- By Productline
 SELECT ProductLine, AVG(StandardCost) AS AverageProductCost
 FROM Production.Product
-WHERE StandardCost <> 0
+WHERE StandardCost <> 0 --Use to filter BOM elements which cost are equal to 0.
 GROUP BY ProductLine;
 
 -- By Style
 SELECT Style, AVG(StandardCost) AS AverageProductCost
 FROM Production.Product
-WHERE StandardCost <> 0
+WHERE StandardCost <> 0 --Use to filter BOM elements which cost are equal to 0.
 GROUP BY Style;
 
 -- By Class
 SELECT Class, AVG(StandardCost) AS AverageProductCost
 FROM Production.Product
-WHERE StandardCost <> 0
+WHERE StandardCost <> 0 --Use to filter BOM elements which cost are equal to 0.
 GROUP BY Class;
 
 --7. What is the average listing price of product? by category? by sub-category? by productline? by style? by class?
@@ -173,7 +173,6 @@ GROUP BY od.ProductID, p.[Name]
 ORDER BY TotalNumberOrder DESC;
 
 --10. Which product is the most purchase by customers during the past years?
-
 WITH cte_product_ordered ([YEAR], ProductID, ProductName, OrderNumber) AS (
 	SELECT YEAR(oh.OrderDate) as [YEAR], od.ProductID, p.[Name] AS ProductName, 
 			COUNT(*) as OrderNumber
@@ -195,7 +194,6 @@ ON po.[YEAR] = pom.[YEAR] AND po.OrderNumber = pom.MaxOrderNumber;
 
 --11. Which products are the most purchase by category? by sub-category?
 -- By Subcategory
-
 WITH cte_subcategory(ProductSubcategoryID, SubcategoryName, ProductID, ProductName) AS (
 	SELECT ps.ProductSubcategoryID, ps.[Name] AS SubcategoryName, p.ProductID, p.[Name] AS ProductName
 	FROM Production.Product p
@@ -268,7 +266,6 @@ WITH cte_numberproduct (ProductID, Product, TotalNumberOrder) AS (
 	ON p.ProductID = od.ProductID
 	WHERE YEAR(oh.OrderDate) = '2014'
 	GROUP BY od.ProductID, p.[Name]
-	
 )
 SELECT p.ProductID, np.Product, np.TotalNumberOrder ,(np.TotalNumberOrder * p.ListPrice) AS TotalRevenue
 FROM Production.Product p
@@ -310,8 +307,6 @@ FROM cte_revenue
 GROUP BY ProductSubcategoryID) rm
 ON r.ProductSubcategoryID = rm.ProductSubcategoryID AND r.TotalRevenue = rm.MaxTotalRevenue
 ORDER BY r.TotalRevenue DESC;
-
-
 
 -- By Category
 WITH cte_category(Category, SubcategoryName, ProductID, ProductName) AS (
