@@ -11,10 +11,10 @@
 ***
 
 ## Business Task
-Adventure Works Cycles HR Manager wants a more employee-centric culture in the company. To attain this goal, he wants to use data to answer few questions about the employee, especially about their work experience in the company and overall satisfaction.
+The production control team at AWC wish to to analyze their manufacturing processes. For this goal, they want to use data to monitor the factory work capacity and improve performance and yield. View here the case study and here my solution.
 
 ## Entity Relationship Diagram
-<img src="https://user-images.githubusercontent.com/119062221/213214812-8d040688-1d79-4094-8977-147edf2b2ebe.jpg" alt="Image" width="550" height="600" >
+<img src="https://user-images.githubusercontent.com/119062221/213214812-8d040688-1d79-4094-8977-147edf2b2ebe.jpg" alt="Image" width="448" height="410" >
 
 
 ## Case Study Questions
