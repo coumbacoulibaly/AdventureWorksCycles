@@ -142,23 +142,23 @@ FROM Production.Product
 WHERE ListPrice <> 0
 GROUP BY Class;
 
---8. How many product did we sell through our channels (physical stores, marketing, online stores, refferals) this year?
+--8. How many product did we sell through our channels (resellers, marketing, online stores, refferals) this year?
 -- Online Store Orders 
 SELECT COUNT(*) AS TotalNumberOrder
 FROM Sales.SalesOrderHeader
-WHERE OnlineOrderFlag = '1' AND YEAR(OrderDate) = '2014';
+WHERE OnlineOrderFlag = '1' AND YEAR(OrderDate) = '2014'; -- OnlineOrderFlag : 1= Order coming from onlinestore, 0= Order coming from physical stores
 
--- Physical Stores Orders 
+-- Resellers Orders 
 SELECT COUNT(*) AS TotalNumberOrder
 FROM Sales.SalesOrderHeader
-WHERE SalesPersonID IS NOT NULL AND YEAR(OrderDate) = '2014';
+WHERE SalesPersonID IS NOT NULL AND YEAR(OrderDate) = '2014'; -- Salesperson are always the one placing order for reseller of their territory
 
---Orders from marketing and referrals
+--Orders from marketing and referrals 
 SELECT sr.[Name] AS Channels, COUNT(so.SalesOrderID) AS TotalNumberOrder
 FROM Sales.SalesOrderHeaderSalesReason so
 JOIN Sales.SalesReason sr 
 ON so.SalesReasonID = sr.SalesReasonID AND YEAR(so.ModifiedDate) = '2014' 
-AND (SR.ReasonType = 'Marketing' OR SR.ReasonType = 'Promotion' OR SR.[Name] = 'Review')
+AND (SR.ReasonType = 'Marketing' OR SR.ReasonType = 'Promotion' OR SR.[Name] = 'Review') -- SalesReason register the purchase reason of the customer
 GROUP BY sr.[Name];
 
 --9. How many purchase do we have by product during the year?
@@ -234,18 +234,18 @@ WITH cte_Category(Category, SubcategoryName, ProductID, ProductName) AS (
 	GROUP BY pc.[Name], ps.[Name], p.ProductID, p.[Name]
 ),
 cte_product_ordered (Category, SubcategoryName, ProductID, ProductName, OrderNumber) AS (
-	SELECT  s.Category,
-			s.SubcategoryName,
+	SELECT  c.Category,
+			c.SubcategoryName,
 			od.ProductID, 
-			s.ProductName, 
+			c.ProductName, 
 			COUNT(*) as OrderNumber
 	FROM Sales.SalesOrderDetail od
 	JOIN Sales.SalesOrderHeader oh
 	ON od.SalesOrderID = oh.SalesOrderID 
-	FULL JOIN cte_subcategory s
-	ON s.ProductID = od.ProductID
+	FULL JOIN cte_Category c
+	ON c.ProductID = od.ProductID
 	WHERE YEAR(oh.OrderDate) = '2014'
-	GROUP BY s.Category, s.SubcategoryName, od.ProductID, s.ProductName
+	GROUP BY c.Category, c.SubcategoryName, od.ProductID, c.ProductName
 )
 SELECT  po.Category, po.SubcategoryName, po.ProductID, po.ProductName, po.OrderNumber
 FROM cte_product_ordered po
@@ -258,7 +258,7 @@ ORDER BY po.OrderNumber DESC;
 
 --12. What is the total revenue by each product this year?
 WITH cte_numberproduct (ProductID, Product, TotalNumberOrder) AS (
-	SELECT od.ProductID, p.[Name] AS Product, COUNT(*) AS TotalNumberOrder--, (  COUNT(*) * p.ListPrice ) AS TotalRevenue
+	SELECT od.ProductID, p.[Name] AS Product, COUNT(*) AS TotalNumberOrder
 	FROM Sales.SalesOrderDetail od
 	JOIN Sales.SalesOrderHeader oh
 	ON od.SalesOrderID = oh.SalesOrderID 
