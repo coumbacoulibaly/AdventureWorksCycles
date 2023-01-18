@@ -1,4 +1,4 @@
-# 🚲: Adventure Works Cycle : Product Analysis
+# 🚲 Adventure Works Cycle : Product Analysis
 
 ## Solution
 
