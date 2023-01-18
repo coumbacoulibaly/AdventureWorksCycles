@@ -33,9 +33,9 @@ Click here to expand
 7. What is the average listing price of product? by category? by sub-category? by productline? by style? by class?
 8. How many product did we sell through our channels (physical stores, marketing, online stores, refferals)?
 9. How many purchase do we have by product during the year?
-10. How many purchase do we have by product during the year?
-11. Which products are the most purchase by customers? (Same question for category, sub-category, productline, style and class)
-12. What is the total revenue by each? by category? by sub-category? by productline? by style? by class?
-
+10. Which product is the most purchase by customers during the past years?
+11. Which products are the most purchase by category? by sub-category?
+12. What is the total revenue by each product this year?
+13. Which product makes the highest revenue this year by category? by sub-category?
 </details>
 
