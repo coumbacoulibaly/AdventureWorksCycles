@@ -79,10 +79,3 @@ SELECT YEAR(ModifiedDate) AS [Years], SUM( OrderQty ) AS TotalOrderQty,
 FROM Production.WorkOrder
 GROUP BY YEAR(ModifiedDate)
 ORDER BY Yield;
-
---7. What is the inventory turnover rate (the rate at which a company's inventory is sold and replaced)?
-SELECT *
-FROM Production.ProductInventory
-
-SELECT *
-FROM Production.Product
