@@ -53,7 +53,7 @@ View [here](https://github.com/coumbacoulibaly/AdventureWorksCycles/tree/master/
 ## Product Analysis
 #### Business Tasks
 Adventure Works Cycles Product team wants see the company different product performance on the market. For this they to use data to analyze trends and product feature to improve.
-View here the case study and here my solution.
+View [here](https://github.com/coumbacoulibaly/AdventureWorksCycles/tree/master/Product%20Analysis) the case study and [here](https://github.com/coumbacoulibaly/AdventureWorksCycles/blob/master/Product%20Analysis/Solution.md) my solution.
 
 #### Product Performance Dashboard
 
