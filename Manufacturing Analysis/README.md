@@ -1,4 +1,4 @@
-# :office: Adventure Works Cycle : HR Analysis
+# :wrench: Adventure Works Cycle : Manufacturing Analysis
 
 
 ## 📚 Table of Contents
@@ -18,25 +18,30 @@ The production control team at AWC wish to to analyze their manufacturing proces
 
 
 ## Case Study Questions
-
 <details>
 <summary>
 Click here to expand  
 </summary>
 
-1. 
-2. 
-3. 
-4. 
-5. 
-6. 
+1. How much time it takes for the factory to manufacture a product in average? let also see it throught out the years?
+2. How many orders has passed the inspection this year (2014) without any scraped items?
+3. How product was scraped this year? find the scrape rate (percentage of production that is discarded as waste)
+4. What was the most frequent scrap reason?
+5. What is the lead time (time it takes to complete a manufacturing process from the start of production to the delivery of the finished product)?
+6. What is the Yield of the factory (the proportion of good units produced out of total units started)?
+7. What is the inventory turnover rate (the rate at which a company's inventory is sold and replaced)?
+<!---
+your comment goes here
+and here
+-->
+<!--- 
 7. 
 8.
 9. 
 10. 
 11. 
 12. 
-13. 
+13. -->
 </details>
 
 
