@@ -24,7 +24,7 @@ Click here to expand
 </summary>
 
 1. How much time it takes for the factory to manufacture a product in average? let also see it throught out the years?
-2. How many product was pass the inspection this year (2014)?
+2. How many orders has passed the inspection this year (2014) without any scraped items?
 3. How product was scraped this year? find the scrape rate (percentage of production that is discarded as waste)
 4. What was the most frequent scrap reason?
 5. What is the lead time (time it takes to complete a manufacturing process from the start of production to the delivery of the finished product)?
