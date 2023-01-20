@@ -29,7 +29,7 @@ Click here to expand
 4. What was the most frequent scrap reason?
 5. What is the lead time (time it takes to complete a manufacturing process from the start of production to the delivery of the finished product)?
 6. What is the Yield of the factory (the proportion of good units produced out of total units started)?
-7. What is the inventory turnover rate (the rate at which a company's inventory is sold and replaced)?
+
 <!---
 your comment goes here
 and here
