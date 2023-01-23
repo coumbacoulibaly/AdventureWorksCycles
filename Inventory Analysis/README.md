@@ -23,13 +23,14 @@ The producton team, also want to an inventory anlysis using data. They want to k
 Click here to expand  
 </summary>
 
-1. 
-2. 
-3. 
-4. 
-5. 
-6. 
-7. 
+1. What is the average safety stock level? Find it for every product
+2. How much does it to store and maintain the inventory?
+3. What is the order lead time (time it takes to receive a product after placing an order)? 
+4. What is the days of supply (number of days that inventory will last at the current rate of consumption)?
+5. What is the Fill rate (percentage of customer orders that are fulfilled on time and in full)?
+6. What is the Backorder rate (percentage of customer orders that cannot be fulfilled on time)?
+7. What is the inventory turnover (number of times inventory is sold and replaced over a given period)?
+8. Calculate the Gross Margin (Net sales - cost of goods sold)
 
 <!--- 
 Inventory turnover: The number of times inventory is sold and replaced over a given period.
