@@ -1,4 +1,4 @@
-# 🧰: Adventure Works Cycle : Customers Analysis
+# 👥: Adventure Works Cycle : Customers Analysis
 
 
 ## 📚 Table of Contents
