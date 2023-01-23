@@ -5,7 +5,7 @@
 - [Business Task](#business-task)
 - [Entity Relationship Diagram](#entity-relationship-diagram)
 - [Case Study Questions](#case-study-questions)
-- [Solution on Github](https://github.com/coumbacoulibaly/AdventureWorksCycles/blob/master/Manufacturing%20Analysis/Solution.md)
+- [Solution on Github](https://github.com/coumbacoulibaly/AdventureWorksCycles/blob/master/Inventory%20Analysis/Solution.md)
 
 
 ***
