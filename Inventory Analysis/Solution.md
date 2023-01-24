@@ -1,4 +1,4 @@
-# 🚲 Adventure Works Cycle : Manufacturing Analysis
+# 🧰: Adventure Works Cycle : Inventory Analysis
 
 ## Solution
 
