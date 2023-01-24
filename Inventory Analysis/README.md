@@ -5,7 +5,7 @@
 - [Business Task](#business-task)
 - [Entity Relationship Diagram](#entity-relationship-diagram)
 - [Case Study Questions](#case-study-questions)
-- [Solution on Github](https://github.com/coumbacoulibaly/AdventureWorksCycles/blob/master/Manufacturing%20Analysis/Solution.md)
+- [Solution on Github](https://github.com/coumbacoulibaly/AdventureWorksCycles/blob/master/Inventory%20Analysis/Solution.md)
 
 
 ***
@@ -23,7 +23,7 @@ The producton team, also want to an inventory anlysis using data. They want to k
 Click here to expand  
 </summary>
 
-1. What is the average safety stock level? Find it for every product
+1. What is the average safety stock level? 
 2. How much does it to store and maintain the inventory?
 3. What is the order lead time (time it takes to receive a product after placing an order)? 
 4. What is the days of supply (number of days that inventory will last at the current rate of consumption)?
