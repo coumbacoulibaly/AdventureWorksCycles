@@ -28,7 +28,8 @@ Click here to expand
 3. What is the order lead time (time it takes to receive a product after placing an order)? 
 4. What is the Fill rate (percentage of customer orders that are fulfilled on time and in full)?
 5. What is the Backorder rate (percentage of customer orders that cannot be fulfilled on time)?
-6. Calculate the Gross Margin (Net sales - cost of goods sold)
+6. What is the days of supply (number of days that inventory will last at the current rate of consumption)?
+7. Calculate the Gross Margin 
 
 <!--- 
 Inventory turnover: The number of times inventory is sold and replaced over a given period.
