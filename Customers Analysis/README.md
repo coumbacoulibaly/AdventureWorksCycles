@@ -20,20 +20,39 @@ The marketing teams wants to better undertand their customers. For this aim, the
 ## Case Study Questions
 <details>
 <summary>
+Customers Demographics
+</summary>
+1. What is the total number of customer? 
+2. What is the total number of customer by year?
+3. How many individual customer do we have ?
+4. What are the gender percentage for our customers?
+5. How many resellers do we have ?
+6. How many customers do we have by region?
+7. How is average of age of our customers?
+8. What is the number of customers by age range?
+
+
+
+</details>
+<!--- 
+<details>
+<summary>
 Click here to expand  
 </summary>
 
-1. 
-2. 
-3.  
-4. 
-5. 
-6. 
-7. 
-8. 
-![ERD_AWC_Customers]()
+1. What is the total number of employees in the company? 
+2. What is the number of employees by department? 
+3. What is the number of employees by region?
+4. What is the number of employees by gender?
+5. What is the number of employees by organization level?
+6. What is the number of employees by Tenure range level?
+7. What the average age of employee? find the youngest and the oldest employeed
+8. What are the marital status percentage in the company?
+9. What is the number of employees by shift?
 
-<!--- 
+
+
+
 Customer lifetime value (CLV): The total value a customer will bring to a company over their lifetime.
 
 Customer acquisition cost (CAC): The cost of acquiring a new customer.
