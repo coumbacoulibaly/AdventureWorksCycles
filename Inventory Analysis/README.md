@@ -28,7 +28,7 @@ Click here to expand
 3. What is the order lead time (time it takes to receive a product after placing an order)? 
 4. What is the Fill rate (percentage of customer orders that are fulfilled on time and in full)?
 5. What is the Backorder rate (percentage of customer orders that cannot be fulfilled on time)?
-6. What is the days of supply (number of days that inventory will last at the current rate of consumption)?
+6. What is the months of supply of the bikes (number of months that inventory will last at the current rate of consumption)?
 7. Calculate the Gross Margin 
 
 <!--- 

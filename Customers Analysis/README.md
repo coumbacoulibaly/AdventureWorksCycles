@@ -20,20 +20,35 @@ The marketing teams wants to better undertand their customers. For this aim, the
 ## Case Study Questions
 <details>
 <summary>
-Click here to expand  
+Customers Demographics
 </summary>
 
-1. 
-2. 
-3.  
-4. 
-5. 
-6. 
-7. 
-8. 
-![ERD_AWC_Customers]()
+1. What is the total number of customer? 
+2. What is the total number of customer by year?
+3. How many individual customer do we have ?
+4. What are the gender percentage for our customers?
+5. How many resellers do we have ?
+6. How many customers do we have by region?
+7. How is average of age of our customers?
+8. What is the number of customers by age range?
+
+</details>
+
+<details>
+<summary>
+Customers Behaviours
+</summary>
+
+1. What is the total amount each customer spent on our products? 
+2. How many times has each customer bought our product?
+3. What was the first product purchased by each individual customer?
+4. What is the most purchased product and how many times was it purchased by all indivivual customers?
+5. Which product was the most popular for each indivivual customer?
+6. What is the total product and amount spent for each indivivual customer?
+7. What is the total amount spent by each reseller?
 
 <!--- 
+
 Customer lifetime value (CLV): The total value a customer will bring to a company over their lifetime.
 
 Customer acquisition cost (CAC): The cost of acquiring a new customer.
