@@ -14,6 +14,7 @@ FROM Production.Product;
 #### Steps:
 Use **AVG** to calculate ````AvgSafetyStockLevel````.
 #### Answer:
+![Question1](https://user-images.githubusercontent.com/119062221/214829873-89893b81-6d42-4881-a681-9a1e047d5d20.png)
 
 
 ***
@@ -27,6 +28,7 @@ FROM Production.Location
 #### Steps:
 Use **SELECT** to retrieve information from ````Location````.
 #### Answer:
+![Question2](https://user-images.githubusercontent.com/119062221/214829899-9ce8302e-996c-465d-8119-08a11bf56941.png)
 
 ***
 ### 3. What is the order lead time (time it takes to receive a product after placing an order)? 
@@ -43,10 +45,12 @@ FROM cte_lead_time;
 ````
 
 #### Steps:
-
+- Create a temp table cte_lead_time to calculate TotalResourceHrs allocate to each order.
+- Use AVG to find the average time in hour
 
 #### Answer:
 
+![Question3](https://user-images.githubusercontent.com/119062221/214829926-02f7117a-7a33-42af-a46c-057d289e7f7c.png)
 
 ***
 
@@ -62,6 +66,7 @@ Use **COUNT** to calculate ````TotalFulfilledOrders```` and ````FillRate````for 
 
 #### Answer:
 
+![Question4](https://user-images.githubusercontent.com/119062221/214829956-4a88a845-02a0-4fc0-94df-6eb5ea679079.png)
 
 
 ***
@@ -77,6 +82,7 @@ WHERE DueDate < ShipDate AND YEAR(OrderDate) = '2014'
 Use **COUNT** to calculate ````TotalUnfulfilledOrders```` and ````BackOrderRate````for 2014.
 #### Answer :
 
+![Question5](https://user-images.githubusercontent.com/119062221/214829978-ed8e7af2-a926-4e6c-bab7-499e2d6b73dd.png)
 
 ***
 
@@ -115,8 +121,12 @@ ON bsq.ProductID = qs.ProductID;
 
 ````
 #### Steps:
-
+- Create a first temp table ````cte_bom```` to retrieve all bikes in the ````BillOfMaterials```` tables with their names.
+- Create a second temp table ````cte_bike_stock_qty```` to find the finished bikes we have currently in the inventory.
+- Create a third temp table ````cte_qtysold```` to calculate the quantity of bike sold in the past 6 months (2014).
+- Then Calculate the month of supply by multiplying the current stock level by 6 and dividing it by the quantity being sold in the past 6 months.
 #### Answer:
+![Question6](https://user-images.githubusercontent.com/119062221/214830010-f356db13-a678-4e97-8bea-2c3c27a11e41.png)
 
 
 ***
@@ -130,6 +140,7 @@ WHERE ListPrice <> 0 AND StandardCost <> 0;
 #### Steps:
 Use **SELECT** AND Mathematical Operators to calculate the ````GrossMargin````
 #### Answer:
+![Question7](https://user-images.githubusercontent.com/119062221/214830036-9619fb4b-1994-42de-9502-0e6f920855f6.png)
 
 
 ***
