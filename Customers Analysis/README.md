@@ -22,6 +22,7 @@ The marketing teams wants to better undertand their customers. For this aim, the
 <summary>
 Customers Demographics
 </summary>
+
 1. What is the total number of customer? 
 2. What is the total number of customer by year?
 3. How many individual customer do we have ?
@@ -31,27 +32,22 @@ Customers Demographics
 7. How is average of age of our customers?
 8. What is the number of customers by age range?
 
-
-
 </details>
-<!--- 
+
 <details>
 <summary>
-Click here to expand  
+Customers Behaviours
 </summary>
 
-1. What is the total number of employees in the company? 
-2. What is the number of employees by department? 
-3. What is the number of employees by region?
-4. What is the number of employees by gender?
-5. What is the number of employees by organization level?
-6. What is the number of employees by Tenure range level?
-7. What the average age of employee? find the youngest and the oldest employeed
-8. What are the marital status percentage in the company?
-9. What is the number of employees by shift?
+1. What is the total amount each customer spent on our products? 
+2. How many times has each customer bought our product?
+3. What was the first product purchased by each individual customer?
+4. What is the most purchased product and how many times was it purchased by all indivivual customers?
+5. Which product was the most popular for each indivivual customer?
+6. What is the total product and amount spent for each indivivual customer?
+7. What is the total amount spent by each reseller?
 
-
-
+<!--- 
 
 Customer lifetime value (CLV): The total value a customer will bring to a company over their lifetime.
 
