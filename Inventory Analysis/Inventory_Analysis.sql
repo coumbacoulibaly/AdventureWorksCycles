@@ -19,7 +19,7 @@ FROM Production.Product;
 
 --2. How much does it cost to store in the different inventory locations?
 SELECT LocationID, [Name], CostRate
-FROM Production.Location
+FROM Production.Location;
 
 --3. What is the order lead time (time it takes to receive a product after placing an order)? 
 WITH cte_lead_time (WorkOrderID, TotalResourceHrs)	AS (
@@ -42,7 +42,7 @@ WHERE DueDate >= ShipDate AND YEAR(OrderDate) = '2014';
 SELECT COUNT(*) AS TotalUnfulfilledOrders, 
 		(COUNT(*) * 100.00/(SELECT COUNT(*) FROM Sales.SalesOrderHeader WHERE YEAR(OrderDate) = '2014')) AS BackOrderRate
 FROM Sales.SalesOrderHeader
-WHERE DueDate < ShipDate AND YEAR(OrderDate) = '2014'
+WHERE DueDate < ShipDate AND YEAR(OrderDate) = '2014';
 
 --6. What is the months of supply of the bikes (number of months that inventory will last at the current rate of consumption)?
 WITH cte_bom (BillOfMaterialsID, ComponentID, ProductID, ProductName, PerAssemblyQty, ProductSubcategoryID) AS (
@@ -79,7 +79,7 @@ ON bsq.ProductID = qs.ProductID;
 --7. Calculate the Gross Margin 
 SELECT ProductID, (((ListPrice - StandardCost)/ListPrice) * 100) AS GrossMargin
 FROM Production.Product
-WHERE ListPrice <> 0 AND StandardCost <> 0;
+WHERE ListPrice <> 0 AND StandardCost <> 0;-- Calculate for only product by the company
 
 
 
